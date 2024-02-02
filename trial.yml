@@ -25,17 +25,25 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'azure-cpg-test'
+    azureResourceManagerConnection: 'azure_sc'
     subscriptionId: $(subscriptionId)
     action: 'Create Or Update Resource Group'
     resourceGroupName: $(resourceGroupName)
     location: $(location)
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'azure_sc'
+    subscriptionId: '29c1ad9f-091e-48a2-9184-01a489833f34'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'cpg-dnd'
+    location: 'Central US'
     templateLocation: 'URL of the file'
     csmFileLink: 'https://raw.githubusercontent.com/k-bhavitha/azure-arm/main/CreateWebApp/trial.json'
+    overrideParameters: '-adminUsername $(adminUsername) -authenticationType $(authenticationType) -adminPasswordOrKey $(adminPasswordOrKey) -vmName $(vmName) -deploymentID $(deploymentID) -networkSecurityGroupName $(networkSecurityGroupName) -subnetName $(subnetName)'
     deploymentMode: 'Incremental'
     deploymentName: 'DevopsVM'
-    overrideParameters: '-adminUsername $(adminUsername) -authenticationType $(authenticationType) -adminPasswordOrKey $(adminPasswordOrKey) -vmName $(vmName) -deploymentID $(deploymentID) -networkSecurityGroupName $(networkSecurityGroupName) -subnetName $(subnetName)'
-# Start with a minimal pipeline that you can customize to build and deploy your code.
+    # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
